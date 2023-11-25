@@ -1,0 +1,54 @@
+.formTitle {
+    font-size: 19px;
+    color: #0a6f21;
+    font-weight: 700;
+}
+.formSubtitle {
+    font-size: 16px;
+}
+.formWrapper {
+    max-width: 455px;
+    padding: 0px 15px;
+}
+.formLabel {
+    font-size: 16px;
+    color: #a2a2a2;
+    margin-bottom: 16px;
+}
+.formInput {
+    border: 0;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 8px 16px;
+    border-bottom: 1px solid gray;
+}
+.formButton {
+    background-color: #0a8323;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 35px;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+
+    &:hover {
+        background-color: #055e17;
+    }
+}
+.formInputError {
+    color: red;
+    padding-left: 10px;
+    font-size: 12px;
+}
+.formLink {
+    // color: blue;
+    text-align: center;
+    font-size: 14px;
+    padding-top: 20px;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
