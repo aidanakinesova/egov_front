@@ -54,8 +54,9 @@ export const Login = () => {
           throw new Error('Login failed');
         }
     
-        const data = await response.json();
-        console.log("data from Back", data);
+        const {access_token} = await response.json();
+        console.log("data from Back", access_token);
+        localStorage.setItem("access_token", access_token);
         setErrMsg("");
         navigate("/main");
         reset(); // Reset the form after a successful login
@@ -172,7 +173,7 @@ export const Login = () => {
         </div>
         </form>
         {errMsg !== "" && <p>{errMsg }</p> }
-      <Link to="register" className={classes.formLink}>Зарегистрироваться</Link>
+      <Link to="/register" className={classes.formLink}>Зарегистрироваться</Link>
     </div>
     </section>
   );

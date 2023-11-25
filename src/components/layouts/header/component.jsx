@@ -1,11 +1,17 @@
 import classNames from "classnames";
 import classes from "./Header.module.scss";
-import { Link, useLocation } from "react-router-dom";
-import React from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
 
 export const Header = () => {
     const { pathname } = useLocation();
-    if (pathname === "/" || pathname === "/register") {
+    const navigate = useNavigate();
+    useEffect(()=>{
+        if(!localStorage.getItem("access_token")) {
+        navigate("/login")
+        }
+    }, [])
+    if (pathname === "/login" || pathname === "/register") {
         return (
             <header className={classes.containerAuth}>
                 <div className="d-flex align-items-center">

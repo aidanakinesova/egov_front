@@ -66,8 +66,9 @@ export const Register = () => {
           throw new Error('Register failed');
         }
     
-        const data = await response.json();
-        console.log("data from Back", data);
+        const {access_token} = await response.json();
+        console.log("access_token from Back", access_token);
+        // localStorage.setItem("access_token", access_token)
         setErrMsg("");
         navigate("/login");
 
@@ -225,7 +226,7 @@ export const Register = () => {
         </div>
       </form>
         {errMsg !== "" && <p>{errMsg }</p> }
-      <Link to="/" className={classes.formLink}>Войти</Link>
+      <Link to="/login" className={classes.formLink}>Войти</Link>
     </div>
     </section>
   );
