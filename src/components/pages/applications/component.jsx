@@ -77,28 +77,32 @@ export const Applications = () => {
                             'border-radius': '4px'
                         }}>Создать новую заявку</Link>
                     </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Статус</th>
-                                <th>Услуга</th>
-                                <th>Номер</th>
-                                <th>Дата отправки заявки</th>
-                                <th>Дата закрытия</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {application_data.data.map((item) => (
-                            <tr key={item.id}>
-                                <td class="status">{item.status}</td>
-                                <td class="service">Заявка на изменение профиля</td>
-                                <td>{item.id}</td>
-                                <td>{formatTimestamp(item.create_dttm)}</td>
-                                <td>{formatTimestamp(item.close_dttm)}</td>
-                            </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                    {application_data && application_data.data && application_data.data.length > 0 ? (
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Статус</th>
+                                    <th>Услуга</th>
+                                    <th>Номер</th>
+                                    <th>Дата отправки заявки</th>
+                                    <th>Дата закрытия</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {application_data.data.map((item) => (
+                                <tr key={item.id}>
+                                    <td class="status">{item.status}</td>
+                                    <td class="service">Заявка на изменение профиля</td>
+                                    <td>{item.id}</td>
+                                    <td>{formatTimestamp(item.create_dttm)}</td>
+                                    <td>{formatTimestamp(item.close_dttm)}</td>
+                                </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                        ) : (
+                        <p>Нет заявок.</p>
+                    )}
                 </div>
             )}
         </section>
