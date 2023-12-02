@@ -1,7 +1,9 @@
 import classes from "./PersonalAccount.module.scss";
 import React, { useEffect, useState } from 'react';
+import { DotLoader } from 'react-spinners';
 export const PersonalAccount = () => {
     const [profile_data, setProfile_data] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,8 +24,10 @@ export const PersonalAccount = () => {
 
                 const data = await response.json();
                 setProfile_data(data);
+                setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error.message);
+                setLoading(false);
             }
         };
 
@@ -32,7 +36,12 @@ export const PersonalAccount = () => {
 
     return (
         <section className="d-flex">
-            {profile_data ? (
+            {loading ? (
+                // Render the loading spinner while waiting for the response
+                <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)'}}>
+                    <DotLoader color={'#06691a'} loading={loading} size={100}/>
+                </div>
+            ) : (
                 <div>
                     <div className={classes.photoWrapper}>
                         <img src={require("../../../assets/images/profile.png")} alt="profile" width={150} height={150} />
@@ -53,8 +62,6 @@ export const PersonalAccount = () => {
                         </ul>
                     </div>
                 </div>
-            ) : (
-                <p></p>
             )}
         </section>
     )

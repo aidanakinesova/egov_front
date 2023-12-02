@@ -1,0 +1,35 @@
+body {
+      font-family: sans-serif;
+    }
+
+table {
+  border-collapse: collapse;
+  border-color: black;
+  border-width: 1px;
+  width: 100%;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #f0f0f0;
+}
+
+td.status {
+  color: red;
+}
+
+td.service {
+  color: blue;
+}
+
+.create-application-link {
+  text-decoration: none;
+  color: #fff;
+  background-color: #000;
+  padding: 10px 20px;
+  border-radius: 4px;
+}
