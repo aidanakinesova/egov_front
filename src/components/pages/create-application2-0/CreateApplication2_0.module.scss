@@ -1,40 +1,12 @@
-.fullname {
-    color: #06691a;
+.formfield {
+    margin-bottom: 5px; // Adjust the margin as needed
 }
-.name {
-    color: #06691a;
-    padding-bottom: 20px;
-    padding-left: 28px;
+.link{
+    position: absolute;
+    text-decoration: none;
+    color: #fff;
+    background-color: #06691a;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 4px;
 }
-.infoWrapper {
-    flex-grow: 1;
-    padding-left: 50px;
-    padding-top: 50px;
-}
-// .infoList {
-
-// }
-.infoDetail {
-    list-style: none;
-    font-size: 18px;
-    line-height: 28px;
-    padding-bottom: 10px;
-
-    &:last-child {
-        padding-bottom: 0px;
-    }
-
-    & > span {
-        font-weight: 700;
-    }
-}
-.photoWrapper {
-    width: 30%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    row-gap: 20px;
-    flex-direction: column;
-    padding-top: 50px;
-}
-
