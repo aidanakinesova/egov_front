@@ -3,6 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { DotLoader } from 'react-spinners';
 import {Link} from "react-router-dom";
 
+function getStatusColorClass(status) {
+  switch (status) {
+    case 'Создано':
+      return 'pending-color';
+    case 'Утверждено':
+      return 'approved-color';
+    case 'Отклонено':
+      return 'rejected-color';
+    default:
+      return ''; // Default color or no additional class
+  }
+}
+
 const formatTimestamp = (timestamp) => {
     if (!timestamp){
         return
@@ -67,16 +80,10 @@ export const Applications = () => {
                 </div>
             ) : (
                 <div>
-                    <div>
-                        <Link to="/create_application" style={{
-                            'text-decoration': 'none',
-                            'color': '#fff',
-                            'background-color': '#06691a',
-                            'padding': '10px 20px',
-                            'margin': '',
-                            'border-radius': '4px'
-                        }}>Создать новую заявку</Link>
+                    <div className={classes.linkdiv}>
+                        <Link to="/create-application" className={classes.link}>Создать новую заявку</Link>
                     </div>
+                    <div>
                     {application_data && application_data.data && application_data.data.length > 0 ? (
                         <table>
                             <thead>
@@ -91,8 +98,11 @@ export const Applications = () => {
                             <tbody>
                                 {application_data.data.map((item) => (
                                 <tr key={item.id}>
-                                    <td class="status">{item.status}</td>
-                                    <td class="service">Заявка на изменение профиля</td>
+                                    <td >
+                                        <span className={`${classes.circle} ${classes[getStatusColorClass(item.status)]}`}/>
+                                        <span>{item.status}</span>
+                                    </td>
+                                    <td>Заявка на изменение профиля</td>
                                     <td>{item.id}</td>
                                     <td>{formatTimestamp(item.create_dttm)}</td>
                                     <td>{formatTimestamp(item.close_dttm)}</td>
@@ -103,6 +113,7 @@ export const Applications = () => {
                         ) : (
                         <p>Нет заявок.</p>
                     )}
+                    </div>
                 </div>
             )}
         </section>

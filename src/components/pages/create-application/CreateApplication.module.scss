@@ -1,0 +1,78 @@
+.titleContainer {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 75px;
+}
+
+.title {
+    margin-bottom: 10px; // Adjust as needed
+}
+
+
+/* Style for the dropdown container */
+.dropdown-container {
+  position: absolute;
+  width: 200px; /* Set the width as needed */
+}
+
+/* Style for the select element (dropdown) */
+.serviceDropdown {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  appearance: none; /* Remove default arrow icon in some browsers */
+  cursor: pointer;
+  background-color: #fff; /* Background color when not focused */
+}
+
+.serviceDropdown:focus {
+  outline: none; /* Remove focus outline */
+  border-color: #06691a; /* Border color when focused */
+}
+
+/* Style for the dropdown options */
+.serviceDropdown option {
+  padding: 10px;
+  background-color: #fff; /* Background color of each option */
+  color: #000; /* Text color of each option */
+}
+
+/* Style for the dropdown arrow icon */
+/* You may need to customize this based on your design */
+.serviceDropdown::after {
+  content: '\25BC'; /* Unicode character for a down arrow */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Additional styles for the dropdown when open */
+.serviceDropdown.open {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: none;
+}
+
+.serviceDropdown.open option {
+  border-bottom: 1px solid #ccc; /* Border between options when dropdown is open */
+}
+.link{
+    position: absolute;
+    text-decoration: none;
+    color: #fff;
+    background-color: #06691a;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 4px;
+}
+
+.disabledLink {
+  pointer-events: none;
+  opacity: 0.5; /* Adjust the opacity as needed */
+  cursor: not-allowed;
+}

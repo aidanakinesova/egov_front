@@ -18,18 +18,42 @@ th {
   background-color: #f0f0f0;
 }
 
-td.status {
-  color: red;
-}
-
-td.service {
-  color: blue;
-}
-
 .create-application-link {
   text-decoration: none;
   color: #fff;
   background-color: #000;
   padding: 10px 20px;
   border-radius: 4px;
+}
+
+.pending-color {
+  background-color: dodgerblue;
+}
+
+.approved-color {
+  background-color: green;
+}
+
+.rejected-color {
+  background-color: red;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px; /* Adjust as needed to control the space between the circle and text */
+}
+
+.link{
+    text-decoration: none;
+    color: #fff;
+    background-color: #06691a;
+    padding: 10px 20px;
+    margin: 20px;
+    border-radius: 4px;
+}
+.linkdiv{
+  margin: 20px;
 }
