@@ -5,10 +5,11 @@ import React, { useEffect } from "react";
 
 export const Header = () => {
     const { pathname } = useLocation();
+    // eslint-disable-next-line no-unused-vars
     const navigate = useNavigate();
     useEffect(()=>{
         if(!localStorage.getItem("access_token")) {
-        navigate("/login")
+        // navigate("/login")
         }
     }, [])
     if (pathname === "/login" || pathname === "/register") {

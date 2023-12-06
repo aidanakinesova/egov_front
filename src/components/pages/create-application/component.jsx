@@ -1,11 +1,11 @@
 import classes from "./CreateApplication.module.scss";
-import React, { useEffect, useState } from 'react';
-import { DotLoader } from 'react-spinners';
+import React, { useState } from 'react';
+// import { DotLoader } from 'react-spinners';
 import {Link} from "react-router-dom";
 
 export const CreateApplication = () => {
-    const [application_data, setApplication_data] = useState(null);
-    const [loading, setLoading] = useState(true);
+    // const [application_data, setApplication_data] = useState(null);
+    // const [loading, setLoading] = useState(true);
 
     const [selectedService, setSelectedService] = useState("");
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -27,7 +27,7 @@ export const CreateApplication = () => {
                 <label htmlFor="services">Выберите тип заявки:</label>
                 <select
                     id="services"
-                    className={`${classes.serviceDropdown}`}
+                    className={classes.serviceDropdown}
                     value={selectedService}
                     onChange={handleServiceChange}
                     onClick={toggleDropdown}
@@ -35,7 +35,8 @@ export const CreateApplication = () => {
                 >
                     <option value="" disabled style={{'opacity':'50%'}}>Нажмите сюда...</option>
                     {services.map((service, index) => (
-                    <option key={index} value={index} disabled={index === 1}>
+                    // <option key={index} value={index} disabled={index === 1}>
+                    <option key={index} value={index}>
                       {service}
                     </option>
                     ))}

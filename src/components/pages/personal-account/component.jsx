@@ -1,6 +1,7 @@
 import classes from "./PersonalAccount.module.scss";
 import React, { useEffect, useState } from 'react';
 import { DotLoader } from 'react-spinners';
+
 export const PersonalAccount = () => {
     const [profile_data, setProfile_data] = useState(null);
     const [loading, setLoading] = useState(true);

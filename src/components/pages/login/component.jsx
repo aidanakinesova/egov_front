@@ -1,11 +1,9 @@
-/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classes from './Login.module.scss';
 import classNames from 'classnames';
-import { login } from '../../../api';
 import { Link, useNavigate } from 'react-router-dom';
 
 export const Login = () => {
@@ -59,7 +57,7 @@ export const Login = () => {
         localStorage.setItem("access_token", access_token);
         setErrMsg("");
         navigate("/main");
-        reset(); // Reset the form after a successful login
+        reset();
     
       } catch (error) {
         console.error('Error:', error.message);
@@ -68,79 +66,6 @@ export const Login = () => {
         setIsLoading(false);
       }
     };
-
-
-
-//   const [email, setEmail] = useState('');
-//   const [password, setPassword] = useState('');
-//   const [error, setError] = useState('');
-// //   const history = useHistory();
-//   const navigate = useNavigate();
-
-//   const loginpage = async () => {
-//     try {
-//       if (!email || !password) {
-//         setError('Please fill in all fields');
-//         return;
-//       }
-
-//       setError('');
-
-//       // Validate email format
-//       if (!validateEmail(email)) {
-//         setError('Invalid email format');
-//         throw new Error('Invalid email format');
-//       }
-
-//       const response = await fetch('http://127.0.0.1:8000/login', {
-//         method: 'POST',
-//         mode: 'cors',
-//         headers: {
-//           'Content-Type': 'application/json',
-//           'Access-Control-Allow-Origin': '*',
-//           'Access-Control-Allow-Methods': 'POST,PATCH,OPTIONS',
-//         },
-//         body: JSON.stringify({
-//           email: email,
-//           password: password,
-//         }),
-//       });
-
-//       if (!response.ok) {
-//         if (response.status === 401) {
-//           setError('Invalid credentials');
-//           throw new Error('Invalid credentials');
-//         } else if (response.status === 404) {
-//           setError('User not found');
-//           throw new Error('User not found');
-//         } else {
-//           throw new Error(`HTTP error! Status: ${response.status}`);
-//         }
-//       }
-
-//       const data = await response.json();
-//       console.log(data);
-//       // Redirect to the dashboard page
-//       // You can use React Router for navigation
-//     } catch (error) {
-//       console.error('Error logging in:', error);
-//     }
-//     // history.push('/dashboard');
-//   };
-
-//   const toRegister = () => {
-
-//     // Redirect to the registration page
-//     // You can use React Router for navigation
-//     // return <Link to="/registration" />;
-//     // history.push('/registration');
-//     navigate('/Register');
-//   };
-
-//   const validateEmail = (email) => {
-//     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//     return re.test(email);
-//   };
 
   return (
     <section>
@@ -154,11 +79,11 @@ export const Login = () => {
         <div className={classNames(["d-flex flex-column p-3"])}>
             <label htmlFor="" className={classNames(["text-center", classes.formLabel])}>IIN/BIN *</label>
             <input
-                type='text'  // Change type to 'text' since BIN is a string of digits
+                type='text'
                 maxLength={12}
                 minLength={12}
                 placeholder='--------------'
-                {...register("iinbin")}  // Update to use the new field name "BIN"
+                {...register("iinbin")}
                 className={classNames(["w-100 px-3 text-center", classes.formInput])}
             />
             <p className={classes.formInputError}>{errors.iinbin?.message}</p>

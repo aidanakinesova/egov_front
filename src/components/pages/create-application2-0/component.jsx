@@ -1,4 +1,4 @@
-import classes from "./CreateApplication2_0.module.scss";
+import classes from "./CreateApplication2.module.scss";
 import React, { useEffect, useState } from 'react';
 import { DotLoader } from 'react-spinners';
 import {useNavigate} from "react-router-dom";
@@ -6,7 +6,7 @@ import {Button} from "react-bootstrap";
 import CreateConfirmationModal from './confirmation';
 
 
-export const CreateApplication2_0 = () => {
+export const CreateApplication2 = () => {
     const navigate = useNavigate();
     const [profile_data, setProfile_data] = useState(null);
     const [editableFields, setEditableFields] = useState({});

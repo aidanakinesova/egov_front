@@ -5,7 +5,7 @@ export const DefaultPage = () => {
     const navigate = useNavigate();
     useEffect(()=>{
         navigate("/login");
-    },[])
+    },[navigate])
     return (
         <></>
     )

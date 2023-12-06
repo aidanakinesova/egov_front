@@ -1,7 +1,7 @@
-import classes from "./Applications.module.scss";
 import React, { useEffect, useState } from 'react';
 import { DotLoader } from 'react-spinners';
 import {Link} from "react-router-dom";
+import classes from "./Applications.module.scss";
 
 function getStatusColorClass(status) {
   switch (status) {
@@ -38,6 +38,7 @@ const formatTimestamp = (timestamp) => {
 
     return `${formattedDate}`;
 };
+
 export const Applications = () => {
     const [application_data, setApplication_data] = useState(null);
     const [loading, setLoading] = useState(true);

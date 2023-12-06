@@ -1,1 +1,1 @@
-export { CreateApplication2_0 } from "../components";
+export { CreateApplication2 } from "../components";
