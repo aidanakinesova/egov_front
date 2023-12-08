@@ -15,6 +15,10 @@ export const ConfirmApplication = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const res = JSON.parse(localStorage.getItem("application_data"))
+                console.log(res)
+                setEditableFields(res)
+
                 const accessToken = localStorage.getItem("access_token");
 
                 const response = await fetch('http://localhost:8000/profile', {

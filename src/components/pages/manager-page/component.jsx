@@ -38,13 +38,12 @@ export const ManagerPage = () => {
         }
     }, [navigate])
     
-    const [application_data, setApplication_data] = useState(Applications);
+    const [application_data, setApplication_data] = useState();
     const [selectedApplicationData, setSelectedApplicationData] = useState();
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         setApplication_data(Applications);
-        console.log(application_data);
         setLoading(false);
         const fetchData = async () => {
             try {
@@ -63,7 +62,8 @@ export const ManagerPage = () => {
                 }
 
                 const data = await response.json();
-                setApplication_data(data);
+                setApplication_data(data.data);
+                // console.log(data.data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error.message);
@@ -72,40 +72,44 @@ export const ManagerPage = () => {
         };
 
         fetchData();
-    }, [application_data]);
+    }, []);
 
     const [openMocal, setOpenModal] = useState(false);
 
     const onRowClickHandler = (id) => {
         setOpenModal(true);
         console.log(id)
-        // const fetchData = async () => {
-        //     try {
-        //         const accessToken = localStorage.getItem("access_token");
+        const fetchData = async () => {
+            try {
+                const accessToken = localStorage.getItem("access_token");
 
-        //         const response = await fetch('http://localhost:8000/manager_requests_detail', {
-        //             method: 'GET',
-        //             headers: {
-        //                 'Authorization': `Bearer ${accessToken}`,
-        //                 'Content-Type': 'application/json',
-        //             },
-        //         });
+                const response = await fetch('http://localhost:8000/manager_requests_detail', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id_app: id,
+                    })
+                });
 
-        //         if (!response.ok) {
-        //             throw new Error('Failed to fetch data');
-        //         }
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
 
-        //         const data = await response.json();
-        //         setSelectedApplicationData(data);
-        //         setLoading(false);
-        //     } catch (error) {
-        //         console.error('Error fetching data:', error.message);
-        //         setLoading(false);
-        //     }
-        // };
+                const data = await response.json();
+                console.log(data)
+                setSelectedApplicationData(data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Error fetching data:', error.message);
+                setLoading(false);
+            }
+        };
 
-        // fetchData();
-        setSelectedApplicationData(application_data.filter((el)=>el.id===id)[0])
+        fetchData();
+        // setSelectedApplicationData(application_data.filter((el)=>el.id===id)[0])
     }
 
     const sendRequestHandle = (requestId) => {
