@@ -1,12 +1,12 @@
-import classes from "./CreateApplication2.module.scss";
+import classes from "./ConfirmApp.module.scss";
 import React, { useEffect, useState } from 'react';
 import { DotLoader } from 'react-spinners';
-import {json, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {Button} from "react-bootstrap";
-import CreateConfirmationModal from './confirmation';
+import CreateConfirmationModal from '../create-application2-0/confirmation';
 
 
-export const CreateApplication2 = () => {
+export const ConfirmApplication = () => {
     const navigate = useNavigate();
     const [profile_data, setProfile_data] = useState(null);
     const [editableFields, setEditableFields] = useState({});
@@ -60,29 +60,29 @@ export const CreateApplication2 = () => {
 
      const saveChanges = async () => {
          console.log("Submitting");
-         localStorage.setItem("application_data", JSON.stringify(editableFields))
-        // const accessToken = localStorage.getItem("access_token");
-        //  try {
-        //      const response = await fetch('http://localhost:8000/update_profile', {
-        //          method: 'POST',
-        //          headers: {
-        //              'Authorization': `Bearer ${accessToken}`,
-        //              'Content-Type': 'application/json',
-        //              'mode': 'no-cors'
-        //          },
-        //          body: JSON.stringify(editableFields),
-        //      });
+        const accessToken = localStorage.getItem("access_token");
+        // const appData = JSON.parse(localStorage.getItem("application_data"))
+         try {
+             const response = await fetch('http://localhost:8000/update_profile', {
+                 method: 'POST',
+                 headers: {
+                     'Authorization': `Bearer ${accessToken}`,
+                     'Content-Type': 'application/json',
+                     'mode': 'no-cors'
+                 },
+                 body: localStorage.getItem("application_data"),
+             });
 
-        //      if (!response.ok) {
-        //          throw new Error('Register failed');
-        //      }
+             if (!response.ok) {
+                 throw new Error('Register failed');
+             }
 
-        //      const message = await response.json();
-        //      console.log("Message", message[0]);
+             const message = await response.json();
+             console.log("Message", message[0]);
 
-        //  } catch (error) {
-        //      console.error('Error:', error.message);
-        //  }
+         } catch (error) {
+             console.error('Error:', error.message);
+         }
      };
 
      const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -90,7 +90,7 @@ export const CreateApplication2 = () => {
     const handleConfirmation = () => {
         setShowConfirmationModal(false);
         saveChanges();
-        navigate("/confirm-application");
+        navigate("/applications");
     };
 
     return (
@@ -111,14 +111,14 @@ export const CreateApplication2 = () => {
                                         type="text"
                                         value={editableFields[field.key] || profile_data[field.key]}
                                         onChange={(e) => handleInputChange(field.key, e.target.value)}
-                                        disabled={index <= 5 ? true : false}
+                                        disabled={true}
                                     />
                                 </label>
                             </div>
                         ))}
                     </form>
                     <div>
-                        <Button onClick={() => setShowConfirmationModal(true)}>Продолжить</Button>
+                        <Button onClick={() => setShowConfirmationModal(true)}>Подтвердить и продолжить</Button>
                     </div>
 
                     <CreateConfirmationModal

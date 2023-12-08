@@ -5,8 +5,16 @@ import React, { useEffect } from "react";
 
 export const Header = () => {
     const { pathname } = useLocation();
+
     // eslint-disable-next-line no-unused-vars
     const navigate = useNavigate();
+
+    const logOutHandler = () => {
+        localStorage.removeItem("access_token")
+        localStorage.removeItem("role")
+        navigate("/login")
+    }
+    
     useEffect(()=>{
         if(!localStorage.getItem("access_token")) {
             // navigate("/login")
@@ -24,6 +32,7 @@ export const Header = () => {
                     <div className={classNames(["ps-2 border-start", classes.phoneNumber])}>1414</div>
                 </div>
                 <div className={classNames([classes.lang])}>KK</div>
+                
             </header>
         )
     } else {
@@ -35,6 +44,7 @@ export const Header = () => {
                         <div className={classNames(["ps-2 border-start", classes.desc])}>Мемлекеттік қызметтер <br/> және онлайн ақпарат</div>
                     </div>
                     <div>KK</div>
+                    <button className={classNames([classes.logoutBtn])} onClick={()=>logOutHandler()}>logout</button>
                 </div>
                 <div className={classes.menu}>
                     <div><Link to="/personal-account">Личный кабинет</Link></div>

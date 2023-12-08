@@ -35,8 +35,8 @@ export const CreateApplication = () => {
                 >
                     <option value="" disabled style={{'opacity':'50%'}}>Нажмите сюда...</option>
                     {services.map((service, index) => (
-                    // <option key={index} value={index} disabled={index === 1}>
-                    <option key={index} value={index}>
+                    <option key={index} value={index} disabled={index === 1}>
+                    {/* // <option key={index} value={index}> */}
                       {service}
                     </option>
                     ))}

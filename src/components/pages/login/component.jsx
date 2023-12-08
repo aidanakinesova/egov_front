@@ -53,7 +53,7 @@ export const Login = () => {
         }
     
         const {access_token, role} = await response.json();
-        console.log("data from Back", access_token);
+        console.log("data from Back", access_token, role);
         localStorage.setItem("access_token", access_token);
         localStorage.setItem("role", role);
         setErrMsg("");

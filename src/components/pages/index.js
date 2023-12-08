@@ -7,3 +7,4 @@ export * from "./default";
 export * from "./create-application";
 export * from "./create-application2-0";
 export * from "./manager-page";
+export * from "./confirm-application";
