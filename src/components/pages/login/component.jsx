@@ -52,11 +52,16 @@ export const Login = () => {
           throw new Error('Login failed');
         }
     
-        const {access_token} = await response.json();
+        const {access_token, role} = await response.json();
         console.log("data from Back", access_token);
         localStorage.setItem("access_token", access_token);
+        localStorage.setItem("role", role);
         setErrMsg("");
-        navigate("/main");
+        if (role === "client") {
+          navigate("/main");
+        } else if(role === "manager") {
+          navigate("/manager-page");
+        }
         reset();
     
       } catch (error) {

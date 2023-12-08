@@ -14,6 +14,26 @@ body {
 body {
   overflow-x: hidden;
 }
+body {
+      font-family: sans-serif;
+    }
+
+table {
+  border-collapse: collapse;
+  border-color: black;
+  border-width: 1px;
+  width: 100%;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #f0f0f0;
+}
+
 * {
   box-sizing: border-box;
   font-family: "InterRegular", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;

@@ -9,10 +9,14 @@ export const Header = () => {
     const navigate = useNavigate();
     useEffect(()=>{
         if(!localStorage.getItem("access_token")) {
-        // navigate("/login")
+            // navigate("/login")
+        } else {
+            if (localStorage.getItem("role") === "manager") {
+                navigate("/manager-page")
+            }
         }
-    }, [])
-    if (pathname === "/login" || pathname === "/register") {
+    }, [navigate])
+    if (pathname === "/login" || pathname === "/register" || pathname === "/manager-page") {
         return (
             <header className={classes.containerAuth}>
                 <div className="d-flex align-items-center">
