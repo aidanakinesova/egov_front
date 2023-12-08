@@ -3,14 +3,16 @@ import { useNavigate } from "react-router-dom"
 import { DotLoader } from 'react-spinners';
 // import { Link } from "react-router-dom";
 import classes from "./ManagerPage.module.scss";
-import {Applications} from "./mock";
+
 
 const formatTimestamp = (timestamp) => {
     if (!timestamp){
         return
     }
 
+
     const dateObject = new Date(timestamp);
+
 
     const options = {
         hour: 'numeric',
@@ -21,33 +23,44 @@ const formatTimestamp = (timestamp) => {
         timeZone: 'Asia/Almaty', // Adjust the time zone as needed
     };
 
+
     const dateFormatter = new Intl.DateTimeFormat('ru-RU', options);
 
+
     const formattedDate = dateFormatter.format(dateObject);
+
 
     return `${formattedDate}`;
 };
 
+
 export const ManagerPage = () => {
 
+
     const navigate = useNavigate();
+
 
     useEffect(() => {
         if (!localStorage.getItem("access_token") || localStorage.getItem("role") !== "manager") {
             // navigate("/main");
         }
     }, [navigate])
-    
+   
     const [application_data, setApplication_data] = useState();
     const [selectedApplicationData, setSelectedApplicationData] = useState();
     const [loading, setLoading] = useState(true);
 
+
+    const [selectedAppId, setSelectedAppId] = useState();
+
+
     useEffect(() => {
-        setApplication_data(Applications);
+        // setApplication_data(Applications);
         setLoading(false);
         const fetchData = async () => {
             try {
                 const accessToken = localStorage.getItem("access_token");
+
 
                 const response = await fetch('http://localhost:8000/manager_requests', {
                     method: 'GET',
@@ -57,9 +70,11 @@ export const ManagerPage = () => {
                     },
                 });
 
+
                 if (!response.ok) {
                     throw new Error('Failed to fetch data');
                 }
+
 
                 const data = await response.json();
                 setApplication_data(data.data);
@@ -71,10 +86,13 @@ export const ManagerPage = () => {
             }
         };
 
+
         fetchData();
     }, []);
 
+
     const [openMocal, setOpenModal] = useState(false);
+
 
     const onRowClickHandler = (id) => {
         setOpenModal(true);
@@ -83,8 +101,12 @@ export const ManagerPage = () => {
             try {
                 const accessToken = localStorage.getItem("access_token");
 
+
+                setSelectedAppId(id);
+
+
                 const response = await fetch('http://localhost:8000/manager_requests_detail', {
-                    method: 'GET',
+                    method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
                         'Content-Type': 'application/json',
@@ -94,13 +116,15 @@ export const ManagerPage = () => {
                     })
                 });
 
+
                 if (!response.ok) {
                     throw new Error('Failed to fetch data');
                 }
 
+
                 const data = await response.json();
                 console.log(data)
-                setSelectedApplicationData(data);
+                setSelectedApplicationData(data.data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching data:', error.message);
@@ -108,43 +132,54 @@ export const ManagerPage = () => {
             }
         };
 
+
         fetchData();
         // setSelectedApplicationData(application_data.filter((el)=>el.id===id)[0])
     }
 
-    const sendRequestHandle = (requestId) => {
+
+    const sendRequestHandle = (requestStatus) => {
         setOpenModal(false);
-        // const fetchData = async () => {
-        //     try {
-        //         const accessToken = localStorage.getItem("access_token");
+        const fetchData = async () => {
+            try {
+                const accessToken = localStorage.getItem("access_token");
 
-        //         const response = await fetch('http://localhost:8000/manager_requests_response', {
-        //             method: 'POST',
-        //             headers: {
-        //                 'Authorization': `Bearer ${accessToken}`,
-        //                 'Content-Type': 'application/json',
-        //             },
-        //             body: {
-        //                  requestId, 
-        //              }  
-        //         });
 
-        //         if (!response.ok) {
-        //             throw new Error('Failed to fetch data');
-        //         }
 
-        //         const data = await response.json();
-        //         setSelectedApplicationData(data);
-        //         setLoading(false);
-        //     } catch (error) {
-        //         console.error('Error fetching data:', error.message);
-        //         setLoading(false);
-        //     }
-        // };
 
-        // fetchData();
-        
+                const response = await fetch('http://localhost:8000/manager_requests_response', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                     id_app: selectedAppId,
+                     status: requestStatus
+                    })
+                });
+
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch data');
+                }
+
+
+                const data = await response.json();
+                console.log(data)
+                // setSelectedApplicationData(data);
+                // setLoading(false);
+            } catch (error) {
+                console.error('Error fetching data:', error.message);
+                // setLoading(false);
+            }
+        };
+
+
+        fetchData();
+       
     }
+
 
     return (
         <section className={classes.wrapper}>
@@ -168,8 +203,8 @@ export const ManagerPage = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {application_data.map((item) => (
-                                <tr key={item.id}  className={classes.rowWrapper} onClick={()=>onRowClickHandler(item.id)}>
+                                {application_data.map((item, index) => (
+                                <tr key={`${item.id}-${index}-app-data`}  className={classes.rowWrapper} onClick={()=>onRowClickHandler(item.id)}>
                                     <td>Заявка на изменение профиля</td>
                                     <td>{item.id}</td>
                                     <td>{formatTimestamp(item.create_dttm)}</td>
@@ -196,9 +231,9 @@ export const ManagerPage = () => {
                             </thead>
                             <tbody>
                                 <tr className="d-flex flex-column">
-                                    <td>почта</td>
-                                    <td>номер</td>
-                                    <td>адрес</td>
+                                {selectedApplicationData.map((el) => (
+                                    <td>{el?.old_value}</td>
+                                ))}
                                 </tr>
                             </tbody>
                         </table>
@@ -207,14 +242,14 @@ export const ManagerPage = () => {
                             <table className={classes.appDetailTable}>
                             <thead>
                                 <tr>
-                                    <th>Старые данные</th>
+                                    <th>Новые данные</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr className="d-flex flex-column">
-                                    <td>почта</td>
-                                    <td>номер</td>
-                                    <td>адрес</td>
+                                    {selectedApplicationData.map((el) => (
+                                    <td>{el?.new_value}</td>
+                                ))}
                                 </tr>
                             </tbody>
                         </table>
